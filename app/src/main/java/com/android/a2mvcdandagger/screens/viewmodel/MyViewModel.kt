@@ -5,20 +5,23 @@ import com.android.a2mvcdandagger.common.viewmodel.SavedStateViewModel
 import com.android.a2mvcdandagger.questions.Question
 import com.android.a2mvcdandagger.screens.questiondetails.FetchDetailQuestionsUseCase
 import com.android.a2mvcdandagger.screens.questionslist.FetchQuestionsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
+//todo 1 remove ViewModelFactory
+//todo 2
+@HiltViewModel
 class MyViewModel @Inject constructor(
-    private val fetchQuestionsUseCase: FetchQuestionsUseCase
-) : SavedStateViewModel() { //todo 2
+    private val fetchQuestionsUseCase: FetchQuestionsUseCase,
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
-    //todo 3
-    private lateinit var _questions: MutableLiveData<List<Question>>
+    private var _questions: MutableLiveData<List<Question>>
     val question: LiveData<List<Question>> get() = _questions
 
-    //todo 4 (next ViewModelKey)
-    override fun init(savedStateHandle: SavedStateHandle) {
+    init {
         _questions = savedStateHandle.getLiveData("questions")
 
         viewModelScope.launch {

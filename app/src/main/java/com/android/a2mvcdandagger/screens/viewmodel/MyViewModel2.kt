@@ -4,15 +4,16 @@ import androidx.lifecycle.*
 import com.android.a2mvcdandagger.questions.Question
 import com.android.a2mvcdandagger.screens.questiondetails.FetchDetailQuestionsUseCase
 import com.android.a2mvcdandagger.screens.questionslist.FetchQuestionsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
-//todo 3 (next ViewModelActivity)
+//todo 3 (finish)
+@HiltViewModel
 class MyViewModel2 @Inject constructor(
     private val fetchQuestionsUseCase: FetchQuestionsUseCase
 ):ViewModel() {
-
 
     private val _questions = MutableLiveData<List<Question>>()
     val question: LiveData<List<Question>> = _questions
